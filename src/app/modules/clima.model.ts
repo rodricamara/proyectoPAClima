@@ -1,4 +1,3 @@
-
 export class ClimaModel {
 
   id: number;
@@ -29,3 +28,18 @@ export class ClimaSysModel {
   constructor() {
   }
 }
+
+export class ProvModel {
+
+  state: string;
+
+  constructor() {
+  }
+}
+
+export class PaisesModel {
+  name: string;
+  constructor() {
+  }
+}
+
