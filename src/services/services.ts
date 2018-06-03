@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ClimaModel, ClimaMainModel, ClimaSysModel } from '../app/modules/clima.model';
+import {PaisesModel} from '../app/modules/paises.model';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Injectable({
     providedIn: 'root',
@@ -12,12 +14,11 @@ export class CiudadesService {
     constructor(private httpClient: HttpClient) {
     }
 
-    buscarCiudad(ciudad: string): Promise<ClimaModel> {
+    getDatosCiudad (ciudad: string): Promise<ClimaModel> {
         return new Promise((resolve, reject) => {
             let url: string = 'http://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&appid=' + this.apikey;
             this.httpClient.get<RespInterface>(url).subscribe((res) => {
                 if (res !== null) {
-                    this.parseData(res);
                     resolve(this.parseData(res));
                 } else {
                     reject();
@@ -26,8 +27,21 @@ export class CiudadesService {
         });
     }
 
+  getPaises(): Promise<PaisesModel[]> {
+    return new Promise((resolve, reject) => {
+      let url = 'https://restcountries.eu/rest/v2/all';
+      this.httpClient.get<Paises[]>(url).subscribe((res) => {
+        if (res !== null) {
+          resolve(this.parsePaises(res));
+        } else {
+          reject();
+        }
+      });
+    });
+  }
+
     parseData(respInter: RespInterface) {
-        const dataTemp: ClimaModel = new ClimaModel();
+        let dataTemp: ClimaModel = new ClimaModel();
         dataTemp.id = respInter.id;
         dataTemp.name = respInter.name;
 
@@ -43,8 +57,17 @@ export class CiudadesService {
 
         return dataTemp;
     }
-}
 
+     parsePaises (res: Paises[]) {
+      let arregloPaises: PaisesModel[] = new Array<PaisesModel>();
+      let arregloPaisesNombre: PaisesModel = new PaisesModel();
+      for (let i = 0; i < res.length ; i++) {
+         arregloPaisesNombre[i] = res[i].name;
+         arregloPaises[i] = (arregloPaisesNombre[i]);
+      }
+      return arregloPaises;
+    }
+}
 export interface MainInterface {
     temp: number;
     pressure: number;
@@ -61,6 +84,9 @@ export interface MainInterface {
   }
   export interface SysInterface {
     country: string;
+  }
+  export interface Paises {
+  name: string;
   }
 
 
