@@ -31,7 +31,12 @@ export class HomeComponent implements OnInit {
       .then((data) => (this.paises = data));
 
     this.objCiudadService.getProvinciasAr()
-      .then( (data) => (this.pro = data));
+      .then((data) => (this.pro = data));
+  }
+
+  onChangeVal(val) {
+    this.ciudadIngresada = (val + ',AR');
+    this.getDatosCiudad();
   }
 
 }

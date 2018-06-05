@@ -6,7 +6,11 @@ footer {
     bottom: 0px;
     width: 100%;
 }
-
   body{
     background-color: lightblue;
   }
+
+.contenedor{
+  width: 50%;
+  margin: 1% 1%;
+}
