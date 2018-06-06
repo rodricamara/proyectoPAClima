@@ -5,7 +5,7 @@ import { CiudadesService } from '../services/services';
 import { HttpClientModule } from '@angular/common/http';
 
 // Rutas
-
+import { APP_ROUTING } from './app.routes';
 
 // Servicios
 
@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -22,11 +23,13 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    APP_ROUTING,
   ],
   providers: [CiudadesService],
   bootstrap: [AppComponent]
