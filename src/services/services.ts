@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ClimaModel, ClimaMainModel, ClimaSysModel, ProvModel, PaisesModel} from '../app/modules/clima.model';
+import {ClimaModel, ClimaMainModel, ClimaSysModel, ClimaWeatherModel, ProvModel, PaisesModel} from '../app/modules/clima.model';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class CiudadesService {
 
   getDatosCiudad(ciudad: string): Promise<ClimaModel> {
     return new Promise((resolve, reject) => {
-      let url: string = 'http://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&appid=' + this.apikey;
+      let url: string = 'http://api.openweathermap.org/data/2.5/weather?q=' + ciudad + '&lang=es&units=metric&appid=' + this.apikey;
       this.httpClient.get<IDatosCiudad>(url).subscribe((res) => {
         if (res !== null) {
           resolve(this.parseoDatosCiudad(res));
@@ -44,8 +44,8 @@ export class CiudadesService {
       let url = '../assets/provincias.json';
       this.httpClient.get<IProv[]>(url).subscribe((res) => {
         if (res !== null) {
-        // console.log(this.parseProv(res));
-        //  resolve(this.parseProv(res));
+          // console.log(this.parseProv(res));
+          //  resolve(this.parseProv(res));
           resolve(res);
         } else {
           reject();
@@ -60,14 +60,21 @@ export class CiudadesService {
     dataTemp.name = res.name;
 
     dataTemp.climaMain = new ClimaMainModel();
-    dataTemp.climaMain.temp = res.main.temp - 273;
+    dataTemp.climaMain.temp = res.main.temp;
     dataTemp.climaMain.pressure = res.main.pressure;
     dataTemp.climaMain.humidity = res.main.humidity;
-    dataTemp.climaMain.temp_min = res.main.temp_min - 273;
-    dataTemp.climaMain.temp_max = res.main.temp_max - 273;
+    dataTemp.climaMain.temp_min = res.main.temp_min;
+    dataTemp.climaMain.temp_max = res.main.temp_max;
 
     dataTemp.climaSys = new ClimaSysModel;
     dataTemp.climaSys.country = res.sys.country;
+
+    dataTemp.climaWeather = new ClimaWeatherModel;
+    dataTemp.climaWeather.icon = res.weather[0].icon;
+    dataTemp.climaWeather.description = res.weather[0].description;
+    dataTemp.climaWeather.main = res.weather[0].main;
+
+
 
     return dataTemp;
   }
@@ -83,12 +90,14 @@ export class CiudadesService {
   }
 
 }
+
 export interface IDatosCiudad {
   id: number;
   name: string;
   codigo: number;
   main: IMain;
   sys: ISys;
+  weather: IWeather;
 }
 
 export interface IMain {
@@ -111,4 +120,9 @@ export interface IProv {
   state: string;
 }
 
+export interface IWeather {
+  main: string;
+  description: string;
+  icon: string;
+}
 

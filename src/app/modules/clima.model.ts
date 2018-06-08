@@ -4,6 +4,7 @@ export class ClimaModel {
   name: string;
   climaMain: ClimaMainModel;
   climaSys: ClimaSysModel;
+  climaWeather: ClimaWeatherModel;
 
   constructor() {
   }
@@ -29,6 +30,15 @@ export class ClimaSysModel {
   }
 }
 
+export class ClimaWeatherModel {
+  main: string;
+  description: string;
+  icon: string;
+
+  constructor() {
+  }
+}
+
 export class ProvModel {
 
   state: string;
@@ -39,7 +49,9 @@ export class ProvModel {
 
 export class PaisesModel {
   name: string;
+
   constructor() {
   }
 }
+
 
