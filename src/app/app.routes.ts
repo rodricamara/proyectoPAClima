@@ -1,15 +1,8 @@
-import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {HomeComponent} from './../app/components/home/home.component';
-import {AboutComponent} from './../app/components/about/about.component';
-import {APP_ROOT} from '@angular/core/src/di/scope';
-
-
-
+import { BodyComponent } from './components/body/body.component';
 
 const APP_ROUTES: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'about', component: AboutComponent},
+  {path: 'home', component: BodyComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 

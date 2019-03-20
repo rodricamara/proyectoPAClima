@@ -1,0 +1,94 @@
+<body id="page-top">
+    <app-navbar></app-navbar>
+    <header class="masthead" style="background-image: url(&quot;assets/img/fondo-web.jpg&quot;);">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h1 class="brand-heading">app del clima</h1>
+                        <p class="intro-text">Aplicación para conocer el estado del clima en tu ciudad</p><a class="btn btn-link btn-circle" role="button" href="#clima"><i class="icon-globe animated"></i></a></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="clima" class="clima-section content-section text-center" style="background-image: url(&quot;assets/img/fondo_web_moderna_azul.jpg&quot;);padding-top: 100px;">
+        <div class="container">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-center">Por Pais</h2>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01"><strong>País</strong></label>
+                    </div>
+                    <select class="custom-select" id="id2" [(ngModel)]="pais"><option *ngFor="let i of paises">{{i}}</option></select>
+                </div>
+                <div *ngIf="pais == 'Argentina'">
+                    <p style="font-size: 0px;"><br><br></p>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01"><strong>Provincia</strong></label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01" (change)="onChangeVal($event.target.value)" *ngIf="pais == 'Argentina'"><option *ngFor="let i of pro"> {{i.state}}</option></select>
+                    </div>
+                </div>
+
+                <p style="font-size: 0px;"><br><br></p>
+                <h2 class="text-center" style="margin-bottom: 0px;">Por Nombre</h2>
+                <p style="font-size: 0px;"><br><br></p>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="El nombre de tu ciudad" [(ngModel)]=ciudadIngresada>
+                    <div class="input-group-append"><button class="btn btn-primary" type="button" (click)="getDatosCiudad()"><strong>Buscar</strong></button>
+                    </div>
+                </div>
+                <p style="font-size: 1px;"><br><br></p>
+            </div>
+
+            <div class="col-lg-8 mx-auto">
+                <div class="card" *ngIf="datos.id">
+                    <div class="card-header blockquote text-center"><strong><img class="" width="50px"
+                         src="https://openweathermap.org/img/w/{{datos.climaWeather.icon}}.png">{{datos.name}}, {{datos.climaSys.country}}
+                         <img class="" width="20px" src="http://openweathermap.org/images/flags/{{datos.climaSys.country.toLocaleLowerCase()}}.png"></strong>
+                        <br> {{datos.climaWeather.description}}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Temperatura Actual: </strong> {{datos.climaMain.temp | number:'1.2-2'}} °C
+                        </li>
+                        <li class="list-group-item"><strong>Temp Max: </strong> {{datos.climaMain.temp_max | number:'1.2-2'}} °C <strong>Temp Min: </strong> {{datos.climaMain.temp_min | number:'1.2-2'}} °C
+                        </li>
+                        <li class="list-group-item"><strong>Presión: </strong> {{datos.climaMain.pressure | number:'1.0-0'}} hPa
+                        </li>
+                        <li class="list-group-item"><strong>Humedad: </strong> {{datos.climaMain.humidity | number:'1.0-0'}} %</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content-section text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>INFORMACIÓN</h2>
+                    <p>Rodrigo Cámara Robles -<br>Para la cátedra Programación Avanzada 2018 UTN FRM<br></p>
+                    <ul class="list-inline banner-social-buttons">
+                        <a href="https://www.facebook.com/rodrigocamararobles" target="_blank">
+                            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-facebook-official fa-fw"></i><span class="network-name">&nbsp;facebook</span></button></li>
+                        </a>
+                        <a href="https://www.instagram.com/rodricamararobles" target="_blank">
+                            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-instagram fa-fw"></i><span class="network-name">&nbsp;instagram</span></button></li>
+                        </a>
+                        <a href="https://github.com/rodricamara" target="_blank">
+                            <li class="list-inline-item">&nbsp;<button class="btn btn-primary btn-lg btn-default" type="button"><i class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></button></li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="map-clean"></div>
+    <app-footer></app-footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/grayscale.js"></script>
+</body>

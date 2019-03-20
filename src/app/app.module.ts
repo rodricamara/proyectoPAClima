@@ -12,9 +12,8 @@ import { APP_ROUTING } from './app.routes';
 // Componentes
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AboutComponent } from './components/about/about.component';
+import { BodyComponent } from './components/body/body.component';
 
 
 @NgModule({
@@ -22,8 +21,7 @@ import { AboutComponent } from './components/about/about.component';
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent,
-    AboutComponent,
+    BodyComponent,
   ],
   imports: [
     BrowserModule,
